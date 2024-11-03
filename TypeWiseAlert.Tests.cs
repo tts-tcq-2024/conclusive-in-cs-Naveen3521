@@ -29,6 +29,11 @@ public class TypeWiseAlertTests
             if (temperatureInC > 45) return BreachType.TOO_HIGH;
             return BreachType.NORMAL;
         }
+
+        public static void checkAndAlert(string recipient, BatteryParam batteryParam, double temperature)
+        {
+            // This method would implement alert logic.
+        }
     }
 
     [Collection("TypeWiseAlertTests")]
