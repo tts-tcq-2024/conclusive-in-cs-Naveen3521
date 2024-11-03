@@ -24,7 +24,19 @@ public partial class Alerter
             { CoolingType.HI_ACTIVE_COOLING, 45 }
         };
 
-    public static BreachType inferBreach(double value, double lowerLimit, double upperLimit)
+    public static int fetchUpperLimitValue(CoolingType coolingType)
+    {
+        return coolingUpperLimits.TryGetValue(coolingType, out int limit) ? limit : default;
+    }
+    
+    public static BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC)
+    {
+        int lowerLimit = 0, upperLimit = 0;
+        upperLimit = fetchUpperLimitValue(coolingType);
+        return AssessBreach(temperatureInC, lowerLimit, upperLimit);
+    }
+    
+    public static BreachType AssessBreach(double value, double lowerLimit, double upperLimit)
     {
         if (value < lowerLimit) 
           return BreachType.TOO_LOW;
@@ -33,15 +45,5 @@ public partial class Alerter
         return BreachType.NORMAL;
     }
 
-    public static BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC)
-    {
-        int lowerLimit = 0, upperLimit = 0;
-        upperLimit = fetchUpperLimitValue(coolingType);
-        return inferBreach(temperatureInC, lowerLimit, upperLimit);
-    }
 
-    public static int fetchUpperLimitValue(CoolingType coolingType)
-    {
-        return coolingUpperLimits.TryGetValue(coolingType, out int limit) ? limit : default;
-    }
 }
