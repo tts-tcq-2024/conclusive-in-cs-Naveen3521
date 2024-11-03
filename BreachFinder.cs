@@ -9,7 +9,7 @@ public partial class Alerter
         TOO_LOW, 
         TOO_HIGH 
     };
-  
+
     public enum CoolingType 
     { 
         PASSIVE_COOLING,
